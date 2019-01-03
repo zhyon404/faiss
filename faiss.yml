@@ -1,0 +1,58 @@
+---
+GENERATOR:
+  PackageName: faiss_go
+  PackageDescription: "Package emd provides Go bindings for emd"
+  Includes: [c_api/AutoTune_c.h,c_api/AuxIndexStructures_c.h,c_api/Clustering_c.h,c_api/Index_c.h,c_api/IndexFlat_c.h,c_api/IndexIVF_c.h,c_api/IndexLSH_c.h,c_api/MetaIndexes_c.h]
+  FlagGroups:
+    - {name: "LDFLAGS",traits: ["darwin"],flags: [-Lc_api -lfaiss_c]}
+    - {name: "LDFLAGS",traits: ["darwin"],flags: [-L.. -lfaiss]}
+    - {name: "LDFLAGS",traits: ["linux"],flags:  [-Lc_api -lfaiss_c]}
+    - {name: "LDFLAGS",traits: ["linux"],flags:  [-L.. -lfaiss]}
+    - {name: "LDFLAGS",traits: ["darwin"],flags: ["-Wl,-undefined,dynamic_lookup"]}
+    - {name: "LDFLAGS",traits: ["linux"],flags: [-L/usr/local/lib -lstdc++ -pthread -lcrypt -lm ]}
+
+PARSER:
+  IncludePaths: [/usr/include]
+  SourcesPaths: [c_api/AutoTune_c.h,c_api/AuxIndexStructures_c.h,c_api/Clustering_c.h,c_api/Index_c.h,c_api/IndexFlat_c.h,c_api/IndexIVF_c.h,c_api/IndexLSH_c.h,c_api/MetaIndexes_c.h]
+
+TRANSLATOR:
+  PtrTips:
+    function:
+      -
+      - {target: ^faiss_Clustering_centroids$, tips: [sref,ref,ref]}
+      - {target: ^faiss_RangeSearchResult_labels$, tips: [sref,ref,ref]}
+      - {target: ^faiss_ParameterRange_values$, tips: [sref,ref,ref]}
+      - {target: ^faiss_Index_range_search$, tips: [sref,0,0,0,ref]}
+      - {target: ^faiss_IndexIDMap2_new$, tips: [sref,ref]}
+      - {target: ^faiss_IndexIDMap_id_map$, tips: [sref,ref,ref]}
+      - {target: ^faiss_IndexIDMap_new$, tips: [sref,sref]}
+      - {target: ^faiss_IndexIVFFlat_new_with$, tips: [sref,sref]}
+      - {target: ^faiss_IndexIVF_copy_subset_to$, tips: [sref,sref]}
+      - {target: ^faiss_IndexIVF_merge_from$, tips: [sref,sref]}
+      - {target: ^faiss_IndexShards_add_shard$, tips: [sref,sref]}
+      - {target: ^faiss_IndexShards_shard_indexes$, tips: [sref,sref,ref]}
+      - {target: ^faiss_IndexRefineFlat_new$, tips: [sref,sref]}
+      - {target: ^faiss_Clustering_train$, tips: [sref,0,0,sref]}
+      - {target: ^faiss_Clustering_new_with_params$, tips: [sref,0,0,ref]}
+      - {target: ^faiss_Clustering_obj$, tips: [ref,ref,ref]}
+      - {target: ^faiss_IndexFlat_xb$, tips: [ref,ref,ref]}
+      - {target: ^faiss_RangeSearchPartialResult_new_result$, tips: [sref,0,sref]}
+      - {target: ^faiss_RangeSearchPartialResult_new$, tips: [sref,sref]}
+      - {target: ^faiss_RangeSearchResult_lims$, tips: [sref,sref]}
+      - {target: ^faiss_Index_remove_ids$, tips: [sref,sref,sref]}
+      - {target: ^faiss_ParameterSpace_add_range$, tips: [sref,0,sref]}
+      - {target: ^faiss_ParameterSpace_set_index_parameter*$, tips: [sref,sref]}
+      - {target: ^*, tips: [sref]}
+
+  Rules:
+    global:
+      - {transform: lower}
+      - {action: accept, from: "faiss_"}
+      - {action: accept, from: "Faiss"}
+      - {action: accept, from: "METRIC_"}
+      - {transform: export}
+    private:
+      - {transform: unexport}
+    post-global:
+      - {action: replace, from: _$}
+      - {load: snakecase}
