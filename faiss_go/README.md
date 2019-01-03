@@ -13,21 +13,35 @@ make
 
 ### TEST
 under faiss/faiss_go/example
-```$xslt
+```
  go run main.go 
 ```
+
+see Docker Example for complete guide
 
 ### Regenerate go bind
 
 download c-for-go
 
-```$xslt
+```
 go get github.com/xlab/c-for-go
 
 ```
 
 under faiss
 
-```$xslt
+```
 c-for-go faiss.yml
+```
+
+### Docker Example
+
+under faiss
+
+```
+docker build -t faiss -f faiss_go/Dockerfile .
+```
+
+```
+docker run -it faiss
 ```
