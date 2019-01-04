@@ -9,6 +9,7 @@ GENERATOR:
     - {name: "LDFLAGS",traits: ["linux"],flags:  [-Lc_api -lfaiss_c]}
     - {name: "LDFLAGS",traits: ["linux"],flags:  [-L.. -lfaiss]}
     - {name: "LDFLAGS",traits: ["darwin"],flags: ["-Wl,-undefined,dynamic_lookup"]}
+    - {name: "LDFLAGS",traits: ["darwin"],flags: [-lblas -llapack]}
     - {name: "LDFLAGS",traits: ["linux"],flags: [-L/usr/local/lib -lstdc++ -pthread -lcrypt -lm -fopenmp -lblas -llapack]}
 
 PARSER:
@@ -19,6 +20,7 @@ TRANSLATOR:
   PtrTips:
     function:
       -
+      - {target: ^faiss_kmeans_clustering, tips: [0,0,0,0,0,ref]}
       - {target: ^faiss_Clustering_centroids$, tips: [sref,ref,ref]}
       - {target: ^faiss_RangeSearchResult_labels$, tips: [sref,ref,ref]}
       - {target: ^faiss_ParameterRange_values$, tips: [sref,ref,ref]}
