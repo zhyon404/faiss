@@ -39,7 +39,7 @@ c-for-go faiss.yml
 under faiss
 
 ```
-docker build -t faiss -f fa``iss_go/Dockerfile .
+docker build -t faiss -f faiss_go/Dockerfile .
 ```
 
 ```
