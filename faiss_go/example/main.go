@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/faiss/faiss_go"
+	"github.com/facebookresearch/faiss/faiss_go"
 	"math/rand"
 )
 
