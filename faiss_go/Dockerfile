@@ -1,6 +1,6 @@
 FROM golang
 
-RUN apt-get update&&apt-get install -y libblas-dev liblapack-dev
+RUN apt-get update&&apt-get install -y libopenblas-dev
 
 ADD . /go/src/github.com/faiss
 
